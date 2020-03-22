@@ -1,6 +1,7 @@
 import React from "react";
 import { Grid, Box } from "grommet";
 import { Sidebar } from "./Sidebar";
+import { Header } from "./Header";
 import { MainContent } from "./MainContent";
 
 export const Home = props => {
@@ -14,29 +15,9 @@ export const Home = props => {
         { name: "main", start: [1, 1], end: [1, 1] }
       ]}
     >
-      <Box gridArea="header" background="brand" />
-      <Box gridArea="nav" background="light-5" />
-      <Box gridArea="main" background="light-2" />
+      <Header gridArea="header" />
+      <Sidebar gridArea="nav" />
+      <MainContent gridArea="main" />
     </Grid>
-
-    /* <Grid
-      areas={[
-        { name: "header", start: [0, 0], end: [0, 1] },
-        { name: "nav", start: [0, 0], end: [0, 0] },
-        { name: "main", start: [1, 0], end: [2, 0] }
-      ]}
-      columns={["medium", "flex"]}
-      rows={["100vh"]}
-    >
-      <Box gridArea="header" background="green">
-        Header
-      </Box>
-      <Box gridArea="nav" background="accent-4">
-        <Sidebar />
-      </Box>
-      <Box gridArea="main" background="red">
-        <MainContent />
-      </Box>
-    </Grid> */
   );
 };
