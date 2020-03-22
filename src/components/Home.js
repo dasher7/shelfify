@@ -1,25 +1,24 @@
 import React from "react";
-import { Grid, Box, makeStyles, CssBaseline } from "@material-ui/core";
-
-const useStyles = makeStyles(theme => ({
-  root: {
-    height: "100vh",
-    margin: 0,
-    padding: 0
-  }
-}));
+import { Grid, Box } from "grommet";
+import { Sidebar } from "./Sidebar";
+import { MainContent } from "./MainContent";
 
 export const Home = () => {
-  const style = useStyles();
-
   return (
-    <Grid container component="main" className={style.root}>
-      <CssBaseline />
-      <Box width={1 / 4} bgcolor="blue">
-        <h1>Hello</h1>
+    <Grid
+      areas={[
+        { name: "nav", start: [0, 0], end: [0, 0] },
+        { name: "main", start: [1, 0], end: [2, 0] }
+      ]}
+      columns={["medium", "flex"]}
+      rows={["100vh"]}
+    >
+      <Box gridArea="nav" background="blue">
+        <Sidebar />
       </Box>
-      <Box width={3 / 4} bgcolor="red">
-        <h2>Hello</h2>
+      <Box gridArea="main" background="red">
+        {" "}
+        <MainContent />
       </Box>
     </Grid>
   );
