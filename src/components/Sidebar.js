@@ -1,16 +1,18 @@
 import React from "react";
-import { Box } from "grommet";
+import { Box, Heading } from "grommet";
 
 export const Sidebar = () => {
   return (
     <Box
       direction="column"
       margin="medium"
-      background="white"
       height="xlarge"
       width="fill"
+      align="center"
     >
-      <h1>Navbar</h1>
+      <Heading level="1" color="black">
+        Shelfify
+      </Heading>
     </Box>
   );
 };
