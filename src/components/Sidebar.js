@@ -1,32 +1,30 @@
-import React from "react";
-import { Accordion, AccordionPanel, Box, Heading, Text } from "grommet";
+import React, { useState } from "react";
+import { Box, Footer, Heading, Button } from "grommet";
+import { AddCircle } from "grommet-icons";
 
-export const Sidebar = ({ gridArea }) => {
+export const Sidebar = props => {
   return (
-    <Box
-      gridArea={gridArea}
-      background="light-4"
-      direction="column"
-      height="xlarge"
-      width="fill"
-      align="center"
-    >
-      <Box margin="medium">
-        <Heading level="1" color="black">
-          Categories
-        </Heading>
-        <Accordion>
-          <AccordionPanel label="Panel 1">
-            <Box pad="medium" background="light-2">
-              <Text>One</Text>
-            </Box>
-          </AccordionPanel>
-          <AccordionPanel label="Panel 2">
-            <Box pad="medium" background="light-2">
-              <Text>Two</Text>
-            </Box>
-          </AccordionPanel>
-        </Accordion>
+    <Box direction="column-reverse" width="medium" background="dark-1">
+      <Box pad="small" align="center">
+        <Button icon={<AddCircle />} label="add category" color="white" />
+      </Box>
+      <Box
+        flex
+        height="small"
+        width="medium"
+        background="light-2"
+        align="center"
+        justify="start"
+      >
+        <Box align="center">
+          <Heading level="3">Multimedia</Heading>
+        </Box>
+        <Box align="center">
+          <Heading level="4">Music</Heading>
+        </Box>
+        <Box align="center">
+          <Heading level="4">Film</Heading>
+        </Box>
       </Box>
     </Box>
   );

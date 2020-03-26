@@ -1,34 +1,19 @@
 import React from "react";
-import { Box, Calendar, Heading } from "grommet";
+import { Box, Calendar } from "grommet";
+import { Card } from "./Card";
 
-export const MainContent = ({ gridArea }) => {
+export const MainContent = props => {
   return (
-    <Box gridArea={gridArea} width="fill" height="xlarge" background="yellow">
-      <Box margin="medium">
-        <Heading>Content</Heading>
-        <Box direction="row" gap="medium">
-          {" "}
-          <Calendar
-            size="small"
-            date={new Date().toISOString()}
-            onSelect={date => {}}
-          />
-          <Calendar
-            size="small"
-            date={new Date().toISOString()}
-            onSelect={date => {}}
-          />
-          <Calendar
-            size="small"
-            date={new Date().toISOString()}
-            onSelect={date => {}}
-          />
-          <Calendar
-            size="small"
-            date={new Date().toISOString()}
-            onSelect={date => {}}
-          />
-        </Box>
+    <Box flex pad="medium" align="start" gap="small" overflow="auto">
+      <Box gap="medium" direction="row" overflow="auto">
+        <Card />
+        <Card />
+      </Box>
+      <Box gap="medium" direction="row" overflow="auto">
+        <Card />
+        <Card />
+        <Card />
+        <Card />
       </Box>
     </Box>
   );

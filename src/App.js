@@ -1,10 +1,10 @@
 import React from "react";
-import { Home } from "./components/Home";
 import { Grommet, grommet } from "grommet";
+import { Home } from "./components/Home";
 
 function App(props) {
   return (
-    <Grommet theme={grommet}>
+    <Grommet theme={grommet} full>
       <Home />
     </Grommet>
   );

@@ -10,13 +10,13 @@ export const Header = ({ gridArea }) => (
     direction="row"
     align="center"
     justify="between"
-    background="brand"
+    background={{ color: "#2C3531" }}
     pad={{ left: "medium", right: "small", vertical: "small" }}
     elevation="medium"
     style={{ zIndex: "1" }}
   >
     <Heading>SHELFIFY</Heading>
-    <Nav direction="row" background="brand" pad="medium">
+    <Nav direction="row" background="brand" pad={{ right: "medium" }}>
       <Anchor icon={<Home />} hoverIndicator />
       <Anchor icon={<Notification />} hoverIndicator />
       <Anchor icon={<ChatOption />} hoverIndicator />
