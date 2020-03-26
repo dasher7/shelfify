@@ -4,7 +4,11 @@ import { AddCircle } from "grommet-icons";
 
 export const Sidebar = props => {
   return (
-    <Box direction="column-reverse" width="medium" background="dark-1">
+    <Box
+      direction="column-reverse"
+      width="medium"
+      background={{ color: "#19202C" }}
+    >
       <Box pad="small" align="center">
         <Button icon={<AddCircle />} label="add category" color="white" />
       </Box>
@@ -12,7 +16,7 @@ export const Sidebar = props => {
         flex
         height="small"
         width="medium"
-        background="light-2"
+        background={{ color: "#3D6574" }}
         align="center"
         justify="start"
       >

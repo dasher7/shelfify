@@ -7,7 +7,7 @@ export const NavigationBar = props => {
     <Box
       tag="header"
       direction="row"
-      background="brand"
+      background={{ color: "#19202C" }}
       pad={{ left: "medium", vertical: "small", right: "small" }}
       align="center"
       elevation="medium"

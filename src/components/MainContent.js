@@ -4,7 +4,14 @@ import { Card } from "./Card";
 
 export const MainContent = props => {
   return (
-    <Box flex pad="medium" align="start" gap="small" overflow="auto">
+    <Box
+      flex
+      pad="medium"
+      align="start"
+      gap="small"
+      overflow="auto"
+      background={{ color: "#C6C5C2" }}
+    >
       <Box gap="medium" direction="row" overflow="auto">
         <Card />
         <Card />

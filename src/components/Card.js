@@ -9,11 +9,12 @@ export const Card = props => {
         width="medium"
         align="center"
         pad="small"
+        round="small"
         border={{ color: "black", side: "all", size: "small" }}
         elevation="small"
       >
         <Heading level="3">The English Game</Heading>
-        <Image src="../../public/logo192.png" />
+        <Image fit="contain" src={require("../images/the-english-game.jpeg")} />
         <Text textAlign="center">
           The English Game is a historical sports drama television miniseries
           developed by Julian Fellowes for Netflix about the origins of modern
