@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
 import { Box } from "grommet";
 import { NavigationBar } from "./NavigationBar";
 import { Sidebar } from "./Sidebar";
