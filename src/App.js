@@ -5,11 +5,11 @@ import { GlobalProvider } from "./store/GlobalStore";
 
 function App(props) {
   return (
-    <GlobalProvider>
-      <Grommet theme={grommet} full>
+    <Grommet theme={grommet} full>
+      <GlobalProvider>
         <Home />
-      </Grommet>
-    </GlobalProvider>
+      </GlobalProvider>
+    </Grommet>
   );
 }
 

@@ -3,7 +3,7 @@ import AppReducer from "./AppReducer";
 
 // !initial state
 const initialState = {
-  placeholder: [{ key: 1, value: "s" }]
+  categories: ["multimedia", "music"]
 };
 
 // !create context
@@ -15,16 +15,31 @@ export const GlobalProvider = ({ children }) => {
 
   //?Actions
 
-  function dummyAction(newValue) {
+  /**
+   * * ADD CATEGORY
+   * @param newCategory is a String which defines the new cateogry you mat want to add
+   */
+  function addCategory(newCategory) {
     dispatch({
-      type: "DUMMY",
-      payload: newValue
+      type: "ADD_CATEGORY",
+      payload: newCategory
+    });
+  }
+
+  /**
+   * * REMOVE CATEGORY
+   * @param toDelete category to remove (as string)
+   */
+  function removeCategory(deleteCategory) {
+    dispatch({
+      type: "REMOVE_CATEGORY",
+      payload: deleteCategory
     });
   }
 
   return (
     <GlobalContext.Provider
-      value={{ placeholder: state.placeholder, dummyAction }}
+      value={{ categories: state.categories, addCategory, removeCategory }}
     >
       {children}
     </GlobalContext.Provider>
