@@ -75,10 +75,9 @@ export const MainContent = props => {
               <FormField
                 name="category"
                 label="Category"
-                component={Select}
                 options={categories.map(category => category)}
                 value={inputs.category}
-                onChange={handleInputChange}
+                onChange={event => handleInputChange(event)}
               ></FormField>
               <Button type="submit" label="save"></Button>
             </Form>

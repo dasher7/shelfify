@@ -3,7 +3,11 @@ import AppReducer from "./AppReducer";
 
 // !initial state
 const initialState = {
-  categories: ["multimedia", "music"]
+  categories: ["film", "music"],
+  cards: {
+    film: [],
+    music: []
+  }
 };
 
 // !create context
@@ -49,6 +53,7 @@ export const GlobalProvider = ({ children }) => {
     <GlobalContext.Provider
       value={{
         categories: state.categories,
+        state: state.cards,
         addCategory,
         removeCategory,
         addCategoryElement

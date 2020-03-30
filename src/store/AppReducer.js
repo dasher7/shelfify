@@ -17,8 +17,15 @@ export default (state, action) => {
         )
       };
     case "ADD_CATEGORY_ELEMENT":
-      console.log(action.payload);
-      return state;
+      return {
+        ...state,
+        cards: {
+          ...state.cards,
+          [action.payload.category]: state.cards[
+            action.payload.category
+          ].concat(action.payload)
+        }
+      };
     default:
       return state;
   }
