@@ -16,6 +16,9 @@ export default (state, action) => {
           (el, index) => el !== action.payload
         )
       };
+    case "ADD_CATEGORY_ELEMENT":
+      console.log(action.payload);
+      return state;
     default:
       return state;
   }

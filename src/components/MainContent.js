@@ -1,10 +1,25 @@
-import React, { useState } from "react";
-import { Box, Calendar, Button, Layer, Heading } from "grommet";
+import React, { useContext, useState } from "react";
+import { GlobalContext } from "../store/GlobalStore";
+import { useForm } from "../hooks/FormHook";
+import {
+  Box,
+  Button,
+  Layer,
+  Heading,
+  Form,
+  FormField,
+  TextArea,
+  Select
+} from "grommet";
 import { Card } from "./Card";
 import { AddCircle, FormClose } from "grommet-icons";
 
 export const MainContent = props => {
+  const { categories, addCategoryElement } = useContext(GlobalContext);
   const [showNewCardForm, setShoeNewCardForm] = useState(false);
+  const { inputs, handleSubmit, handleInputChange } = useForm(
+    addCategoryElement
+  );
 
   return (
     <Box
@@ -41,7 +56,33 @@ export const MainContent = props => {
               onClick={() => setShoeNewCardForm(false)}
             ></Button>
           </Box>
-          <Heading>Hello</Heading>
+          <Box pad="small">
+            <Heading level="3">Add Card</Heading>
+            <Form onSubmit={handleSubmit}>
+              <FormField
+                name="title"
+                label="Title"
+                value={inputs.title}
+                onChange={handleInputChange}
+              ></FormField>
+              <FormField
+                name="description"
+                label="Description"
+                component={TextArea}
+                value={inputs.description}
+                onChange={handleInputChange}
+              ></FormField>
+              <FormField
+                name="category"
+                label="Category"
+                component={Select}
+                options={categories.map(category => category)}
+                value={inputs.category}
+                onChange={handleInputChange}
+              ></FormField>
+              <Button type="submit" label="save"></Button>
+            </Form>
+          </Box>
         </Layer>
       )}
     </Box>

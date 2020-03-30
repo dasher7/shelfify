@@ -37,9 +37,22 @@ export const GlobalProvider = ({ children }) => {
     });
   }
 
+  /**
+   * * ADD A CATEGORY ELEMENT (CARD)
+   * @param all the info passed through the creation form
+   */
+  function addCategoryElement(newCategoryElement) {
+    dispatch({ type: "ADD_CATEGORY_ELEMENT", payload: newCategoryElement });
+  }
+
   return (
     <GlobalContext.Provider
-      value={{ categories: state.categories, addCategory, removeCategory }}
+      value={{
+        categories: state.categories,
+        addCategory,
+        removeCategory,
+        addCategoryElement
+      }}
     >
       {children}
     </GlobalContext.Provider>
