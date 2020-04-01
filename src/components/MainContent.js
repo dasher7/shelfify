@@ -14,7 +14,7 @@ import { Card } from "./Card";
 import { AddCircle, FormClose } from "grommet-icons";
 import { act } from "react-dom/test-utils";
 
-export const MainContent = props => {
+export const MainContent = ({ firebase }) => {
   const { categories, cards, active, addCategoryElement } = useContext(
     GlobalContext
   );
@@ -25,6 +25,7 @@ export const MainContent = props => {
 
   console.log(active);
   console.log(cards[active]);
+  console.log(firebase);
 
   return (
     <Box

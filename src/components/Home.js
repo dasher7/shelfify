@@ -3,6 +3,7 @@ import { Box } from "grommet";
 import { NavigationBar } from "./NavigationBar";
 import { Sidebar } from "./Sidebar";
 import { MainContent } from "./MainContent";
+import { FirebaseContext } from "../firebase";
 
 export const Home = props => {
   return (
@@ -10,7 +11,9 @@ export const Home = props => {
       <NavigationBar />
       <Box flex direction="row" overflow={{ horizontal: "hidden" }}>
         <Sidebar />
-        <MainContent />
+        <FirebaseContext.Consumer>
+          {firebase => <MainContent firebase={firebase} />}
+        </FirebaseContext.Consumer>
       </Box>
     </Box>
   );
