@@ -4,9 +4,12 @@ import AppReducer from "./AppReducer";
 // !initial state
 const initialState = {
   categories: ["film", "music"],
+  active: "film",
   cards: {
-    film: [],
-    music: []
+    film: [
+      { title: "The English Game", description: "test", category: "film" }
+    ],
+    music: [{ title: "Trench", description: "21 Pilots", category: "music" }]
   }
 };
 
@@ -42,6 +45,17 @@ export const GlobalProvider = ({ children }) => {
   }
 
   /**
+   * * ADD THE ACTIVE CATEGORY
+   * @param {newActiveCategory} String representing the new active category
+   */
+  function addActiveCategory(newActiveCategory) {
+    dispatch({
+      type: "ADD_ACTIVE_CATEGORY",
+      payload: newActiveCategory
+    });
+  }
+
+  /**
    * * ADD A CATEGORY ELEMENT (CARD)
    * @param all the info passed through the creation form
    */
@@ -53,10 +67,12 @@ export const GlobalProvider = ({ children }) => {
     <GlobalContext.Provider
       value={{
         categories: state.categories,
-        state: state.cards,
+        cards: state.cards,
+        active: state.active,
         addCategory,
         removeCategory,
-        addCategoryElement
+        addCategoryElement,
+        addActiveCategory
       }}
     >
       {children}

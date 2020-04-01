@@ -26,6 +26,8 @@ export default (state, action) => {
           ].concat(action.payload)
         }
       };
+    case "ADD_ACTIVE_CATEGORY":
+      return { ...state, active: action.payload };
     default:
       return state;
   }

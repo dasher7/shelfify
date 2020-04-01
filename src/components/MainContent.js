@@ -8,18 +8,23 @@ import {
   Heading,
   Form,
   FormField,
-  TextArea,
-  Select
+  TextArea
 } from "grommet";
 import { Card } from "./Card";
 import { AddCircle, FormClose } from "grommet-icons";
+import { act } from "react-dom/test-utils";
 
 export const MainContent = props => {
-  const { categories, addCategoryElement } = useContext(GlobalContext);
+  const { categories, cards, active, addCategoryElement } = useContext(
+    GlobalContext
+  );
   const [showNewCardForm, setShoeNewCardForm] = useState(false);
   const { inputs, handleSubmit, handleInputChange } = useForm(
     addCategoryElement
   );
+
+  console.log(active);
+  console.log(cards[active]);
 
   return (
     <Box
@@ -39,8 +44,16 @@ export const MainContent = props => {
       </Box>
       <Box gap="medium" direction="row">
         {/**overflow="auto" */}
-        <Card />
-        <Card />
+        {cards[active].map((card, index) => (
+          <Card
+            key={card.title}
+            title={card.title}
+            description={card.description}
+            category={card.category}
+          />
+        ))}
+        {/*     <Card />
+        <Card /> */}
       </Box>
       {/*  <Box gap="medium" direction="row" overflow="auto">
         <Card />

@@ -4,7 +4,12 @@ import { AddCircle, FormClose } from "grommet-icons";
 import { GlobalContext } from "../store/GlobalStore";
 
 export const Sidebar = props => {
-  const { categories, addCategory, removeCategory } = useContext(GlobalContext);
+  const {
+    categories,
+    addCategory,
+    removeCategory,
+    addActiveCategory
+  } = useContext(GlobalContext);
   const [clickCategory, setClickCategory] = useState("");
   const [isHover, setIsHover] = useState("");
   const [formCategoryValue, setFormCategoryValue] = useState("");
@@ -55,7 +60,10 @@ export const Sidebar = props => {
               onMouseLeave={() => setIsHover("")}
             >
               <Button
-                onClick={() => setClickCategory(categoryName)}
+                onClick={() => {
+                  setClickCategory(categoryName);
+                  addActiveCategory(categoryName);
+                }}
                 focusIndicator={false}
               >
                 <Heading level={clickCategory === categoryName ? "2" : "3"}>
