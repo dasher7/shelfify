@@ -14,15 +14,27 @@ import {
 } from "grommet";
 import { FormClose } from "grommet-icons";
 import { useForm } from "../hooks/FormHook";
+import { compose } from "recompose";
+import { withRouter } from "react-router-dom";
+import { withFirebase } from "../firebase";
 
-export const LandingPage = props => {
-  const signIn = () => {
+export const LandingPageBase = props => {
+  /**
+   * * FUNCTION TO CALL FIREBASE USER CREATION API
+   */
+  const signIn = async () => {
+    const user = await props.firebase.doCreateUserWithEmailAndPassword(
+      inputs.email,
+      inputs.firstPassword
+    );
+    console.log(user);
     console.log("firebase");
   };
+
   const [showLoginForm, setShowLoginForm] = useState(false);
   const { inputs, handleSubmit, handleInputChange } = useForm(signIn);
-
-  console.log(inputs);
+  console.log(inputs.firstPassword);
+  console.log(inputs.email);
 
   return (
     <Box
@@ -90,7 +102,7 @@ export const LandingPage = props => {
                 </Form>
               </Tab>
               <Tab title="Sign Up">
-                <Form>
+                <Form onSubmit={handleSubmit}>
                   <FormField label="email">
                     <TextInput
                       placeholder="your awesome email"
@@ -99,21 +111,21 @@ export const LandingPage = props => {
                       onChange={handleInputChange}
                     ></TextInput>
                   </FormField>
-                  <FormField
-                    label="password"
-                    name="firstPassword"
-                    value={inputs.firstPassword}
-                    onChange={handleInputChange}
-                  >
+                  <FormField label="password">
+                    <TextInput
+                      placeholder="your super secret password"
+                      name="firstPassword"
+                      value={inputs.firstPassword}
+                      onChange={handleInputChange}
+                    ></TextInput>
+                  </FormField>
+                  <FormField label="confirm password">
                     <TextInput
                       placeholder="your super secret password"
                       name="secondPassword"
                       value={inputs.secondPassword}
                       onChange={handleInputChange}
                     ></TextInput>
-                  </FormField>
-                  <FormField label="confirm password">
-                    <TextInput placeholder="your super secret password"></TextInput>
                   </FormField>
                   <Button type="submit" label="sign in" />
                 </Form>
@@ -125,3 +137,5 @@ export const LandingPage = props => {
     </Box>
   );
 };
+
+export const LandingPage = compose(withRouter, withFirebase)(LandingPageBase);

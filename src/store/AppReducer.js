@@ -9,7 +9,6 @@ export default (state, action) => {
       const newArray = state.categories.concat(action.payload);
       return { ...state, categories: newArray };
     case "REMOVE_CATEGORY":
-      console.log(action.payload);
       return {
         ...state,
         categories: state.categories.filter(
