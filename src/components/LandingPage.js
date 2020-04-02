@@ -13,9 +13,17 @@ import {
   TextInput
 } from "grommet";
 import { FormClose } from "grommet-icons";
+import { useForm } from "../hooks/FormHook";
 
 export const LandingPage = props => {
+  const signIn = () => {
+    console.log("firebase");
+  };
   const [showLoginForm, setShowLoginForm] = useState(false);
+  const { inputs, handleSubmit, handleInputChange } = useForm(signIn);
+
+  console.log(inputs);
+
   return (
     <Box
       align="center"
@@ -61,12 +69,22 @@ export const LandingPage = props => {
             </Box>
             <Tabs>
               <Tab title="Sign In">
-                <Form>
+                <Form onSubmit={handleSubmit}>
                   <FormField label="email">
-                    <TextInput placeholder="your awsome email"></TextInput>
+                    <TextInput
+                      placeholder="your awesome email"
+                      name="email"
+                      value={inputs.email}
+                      onChange={handleInputChange}
+                    ></TextInput>
                   </FormField>
                   <FormField label="password">
-                    <TextInput placeholder="your super secret password"></TextInput>
+                    <TextInput
+                      placeholder="your super secret password"
+                      name="password"
+                      value={inputs.password}
+                      onChange={handleInputChange}
+                    ></TextInput>
                   </FormField>
                   <Button type="submit" label="sign in" />
                 </Form>
@@ -74,10 +92,25 @@ export const LandingPage = props => {
               <Tab title="Sign Up">
                 <Form>
                   <FormField label="email">
-                    <TextInput placeholder="your awsome email"></TextInput>
+                    <TextInput
+                      placeholder="your awesome email"
+                      name="email"
+                      value={inputs.email}
+                      onChange={handleInputChange}
+                    ></TextInput>
                   </FormField>
-                  <FormField label="password">
-                    <TextInput placeholder="your super secret password"></TextInput>
+                  <FormField
+                    label="password"
+                    name="firstPassword"
+                    value={inputs.firstPassword}
+                    onChange={handleInputChange}
+                  >
+                    <TextInput
+                      placeholder="your super secret password"
+                      name="secondPassword"
+                      value={inputs.secondPassword}
+                      onChange={handleInputChange}
+                    ></TextInput>
                   </FormField>
                   <FormField label="confirm password">
                     <TextInput placeholder="your super secret password"></TextInput>
