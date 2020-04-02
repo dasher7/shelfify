@@ -12,7 +12,6 @@ import {
 } from "grommet";
 import { Card } from "./Card";
 import { AddCircle, FormClose } from "grommet-icons";
-import { act } from "react-dom/test-utils";
 
 export const MainContent = ({ firebase }) => {
   const { categories, cards, active, addCategoryElement } = useContext(
@@ -22,10 +21,6 @@ export const MainContent = ({ firebase }) => {
   const { inputs, handleSubmit, handleInputChange } = useForm(
     addCategoryElement
   );
-
-  console.log(active);
-  console.log(cards[active]);
-  console.log(firebase);
 
   return (
     <Box
