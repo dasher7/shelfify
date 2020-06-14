@@ -1,26 +1,24 @@
 import React from "react";
-import { Grommet, grommet } from "grommet";
-import { Home } from "./components/Home";
-import { LandingPage } from "./components/LandingPage";
-import { GlobalProvider } from "./store/GlobalStore";
+import "./css/app.css";
+import { Shelfify } from "./components/Shelfify";
+import { GlobalStore } from "./store/GlobalStore";
 import { Switch, Route } from "react-router";
+import { Landing } from "./components/Landing";
 import { HOME, LANDING } from "./routes/routes";
 
-function App(props) {
+export const App = () => {
   return (
-    <Grommet theme={grommet} full>
-      <GlobalProvider>
-        <Switch>
-          <Route exact path={HOME}>
-            <Home />
-          </Route>
-          <Route path={LANDING}>
-            <LandingPage />
-          </Route>
-        </Switch>
-      </GlobalProvider>
-    </Grommet>
+    <GlobalStore>
+      <Switch>
+        <Route exact path={HOME}>
+          <div className="App">
+            <Shelfify />
+          </div>
+        </Route>
+        <Route path={LANDING}>
+          <Landing />
+        </Route>
+      </Switch>
+    </GlobalStore>
   );
-}
-
-export default App;
+};

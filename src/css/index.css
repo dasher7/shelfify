@@ -1,0 +1,10 @@
+:root {
+  --montserrat: "Montserrat", sans-serif;
+}
+
+body {
+  margin: 0;
+  font-family: var(--montserrat);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}

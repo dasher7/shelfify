@@ -1,3 +1,7 @@
+// ! THIS WILL BE THE MAIN CLASS
+// ! WE CREATE THE FIREBASE CLASS INITIALIZING THE FIREBASE APP ITSELF
+// ! WE ALSO CREATE ALL THE API IN ORDER TO COMMUNICATE WITH FIREBASE
+
 import app from "firebase/app";
 import "firebase/auth";
 
@@ -9,7 +13,7 @@ const firebaseConfig = {
   storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
   messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGIN_SENDER,
   appId: process.env.REACT_APP_FIREBASE_APP_ID,
-  measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID
+  measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID,
 };
 
 class Firebase {
@@ -19,7 +23,7 @@ class Firebase {
   }
 
   /**
-   * *AUTH API
+   * * AUTH API
    */
 
   doCreateUserWithEmailAndPassword = (email, password) =>
@@ -31,12 +35,16 @@ class Firebase {
 
   doSignOut = () => this.auth.signOut();
 
-  doPasswordReset = email => this.auth.sendPasswordResetEmail(email);
+  doPasswordReset = (email) => this.auth.sendPasswordResetEmail(email);
 
-  doPasswordUpdate = password => this.auth.updatePassword();
+  doPasswordUpdate = (password) => this.auth.updatePassword();
 
   /**
    * *END AUTH API
+   */
+
+  /**
+   * * DATABASE API
    */
 }
 
