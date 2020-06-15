@@ -1,63 +1,110 @@
 import React, { useState } from "react";
 import { Button, Modal, Form, Input } from "antd";
 import { withFirebase } from "../firebase";
+import { withRouter } from "react-router-dom";
+import * as ROUTES from "../routes/routes";
 
 /**
  * TODO: refactor the class separating the two forms
+ * TODO: improve error message when login/logout -- DONE
+ * TODO: validate form before sending it to firebase -- DONE
+ * TODO: refactor logic of validating and submitting
  */
 
-export const LoginForm = ({ accessType, visible, exit, firebase }) => {
+const layout = {
+  labelCol: { span: 8 },
+  wrapperCol: { span: 16 },
+};
+
+const tailLayout = {
+  wrapperCol: { offset: 8, span: 16 },
+};
+
+export const LoginForm = ({ accessType, visible, exit, firebase, history }) => {
   const [user, setUser] = useState({
-    email: "bbbbb@bbbb.it",
-    password: "aaaaaaa",
-    passwordConfirm: "aaaaaaa",
+    email: "",
+    password: "",
+    passwordConfirm: "",
   });
 
-  const handleSubmit = async (user) => {
+  const validateLogin = (...fields) => {
+    fields.forEach((el) => {
+      if (el === "") return false;
+    });
+  };
+
+  const validateSignup = ({ email, password, passwordConfirm }) => {
+    return password === passwordConfirm && email !== "";
+  };
+
+  const handleSubmit = async (event) => {
     try {
-      console.log("iiiiiii");
-      console.log(firebase);
       console.log(user);
-      const authUser = await firebase.doCreateUserWithEmailAndPassword(
-        user.email,
-        user.password
-      );
-      console.log(authUser);
+      let authUser = {};
+      if (accessType === "signup") {
+        if (validateSignup(user)) {
+          authUser = await firebase.doCreateUserWithEmailAndPassword(
+            user.email,
+            user.password
+          );
+          history.push(ROUTES.HOME);
+        } else {
+          alert("Email cannot be empty and passwords must match.");
+        }
+      }
+
+      if (accessType === "login") {
+        if (!validateLogin()) alert("Fields cannot be empty.");
+        else {
+          authUser = await firebase.doSignInWithEmailAndPassword(
+            user.email,
+            user.password
+          );
+          history.push(ROUTES.HOME);
+        }
+      }
+      console.log("user", authUser);
     } catch (error) {
-      console.log(error);
       alert("Something went bad.");
     }
+    //event.preventDefault();
   };
 
   return (
     <Modal
-      title="Log In"
+      title={accessType === "login" ? "Log In" : "Sign Up"}
       visible={visible}
       onCancel={() => exit()}
       footer={null}
     >
       {accessType === "login" && (
         <Form
-          onFinish={() => handleSubmit(user)}
+          {...layout}
+          onFinish={(event) => handleSubmit(event)}
           onFinishFailed={() => alert("Insert at least a letter.")}
         >
           <Form.Item name="email" label="email">
             <Input
+              name="email"
+              label="name"
               placeholder="email"
               onChange={(event) =>
-                setUser({ [event.target.name]: event.target.value })
+                setUser({ ...user, [event.target.name]: event.target.value })
               }
             />
           </Form.Item>
-          <Form.Item label="password">
+          <Form.Item name="password" label="password">
             <Input
+              name="password"
+              label="password"
               placeholder="password"
+              type="password"
               onChange={(event) =>
-                setUser({ [event.target.name]: event.target.value })
+                setUser({ ...user, [event.target.name]: event.target.value })
               }
             />
           </Form.Item>
-          <Form.Item>
+          <Form.Item {...tailLayout}>
             <Button type="primary" htmlType="submit">
               Log In
             </Button>
@@ -66,39 +113,45 @@ export const LoginForm = ({ accessType, visible, exit, firebase }) => {
       )}
       {accessType === "signup" && (
         <Form
+          {...layout}
           onFinish={() => handleSubmit(user)}
           onFinishFailed={() => alert("Insert at least a letter.")}
         >
           <Form.Item name="email" label="email">
             <Input
+              name="email"
               placeholder="email"
               value={user.email}
               onChange={(event) =>
-                setUser({ [event.target.name]: event.target.value })
+                setUser({ ...user, [event.target.name]: event.target.value })
               }
             />
           </Form.Item>
           <Form.Item name="password" label="password">
             <Input
+              name="password"
               placeholder="password"
+              type="password"
               value={user.password}
               onChange={(event) =>
-                setUser({ [event.target.name]: event.target.value })
+                setUser({ ...user, [event.target.name]: event.target.value })
               }
             />
           </Form.Item>
           <Form.Item name="passwordConfirm" label="password-confirmation">
             <Input
+              name="passwordConfirm"
               placeholder="password-confirmation"
+              type="password"
               value={user.passwordConfirm}
               onChange={(event) =>
-                setUser({ [event.target.name]: event.target.value })
+                setUser({ ...user, [event.target.name]: event.target.value })
               }
             />
           </Form.Item>
-          <Form.Item>
+          <Form.Item {...tailLayout}>
             <Button type="primary" htmlType="submit">
-              Log In
+              Sign Up
             </Button>
           </Form.Item>
         </Form>
@@ -107,6 +160,6 @@ export const LoginForm = ({ accessType, visible, exit, firebase }) => {
   );
 };
 
-const LoginFormFirebase = withFirebase(LoginForm);
+const LoginFormFirebase = withRouter(withFirebase(LoginForm));
 
 export { LoginFormFirebase };

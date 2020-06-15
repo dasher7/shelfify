@@ -1,14 +1,34 @@
 import React from "react";
-import { Avatar, Layout, Typography, Row } from "antd";
+import { Avatar, Cascader, Layout, Typography, Row } from "antd";
 import {
   MenuUnfoldOutlined,
   MenuFoldOutlined,
   UserOutlined,
 } from "@ant-design/icons";
 import { SearchBar } from "./SearchBar";
+import { withFirebase } from "../firebase";
+import { withRouter } from "react-router-dom";
+import * as ROUTES from "../routes/routes";
 
 const { Header } = Layout;
 const { Title } = Typography;
+
+const cascadeOptions = [
+  {
+    value: "settings",
+    label: "settings",
+  },
+
+  {
+    value: "stats",
+    label: "stats",
+  },
+
+  {
+    value: "log out",
+    label: "logout",
+  },
+];
 
 /**
  * TODO: add the search bar at the top, in the middle of the header -- DONE
@@ -19,9 +39,26 @@ const { Title } = Typography;
  * TODO: take care of responsive layout
  * TODO: as I refactored layout, take care of aling item and give them the right class -- DONE
  * TODO: Make the welcome message responsive to the logged user
+ * TODO: control the cascade style via CSS
  */
 
-export const HeaderContent = ({ collapsed, toggle }) => {
+export const HeaderContentBase = ({ collapsed, toggle, firebase, history }) => {
+  const handleSelect = async (value, selectedOptions) => {
+    switch (value[0]) {
+      case "log out":
+        console.log("logout");
+        try {
+          await firebase.doSignOut();
+          history.push(ROUTES.LANDING);
+        } catch (error) {
+          console.error(error);
+        }
+        break;
+      default:
+        alert("Error");
+    }
+  };
+
   return (
     <Header
       style={{
@@ -49,8 +86,12 @@ export const HeaderContent = ({ collapsed, toggle }) => {
         <Title level={3} style={{ marginRight: 15 }}>
           Welcome, Andrea
         </Title>
-        <Avatar style={{ backgroundColor: "blue" }} icon={<UserOutlined />} />
+        <Cascader options={cascadeOptions} onChange={handleSelect}>
+          <Avatar style={{ backgroundColor: "blue" }} icon={<UserOutlined />} />
+        </Cascader>
       </Row>
     </Header>
   );
 };
+
+export const HeaderContent = withRouter(withFirebase(HeaderContentBase));
