@@ -9,6 +9,10 @@ import { WithAuthentication } from "./auth";
 import { withRouter } from "react-router-dom";
 import * as ROUTES from "./routes/routes";
 
+/**
+ * TODO: implement a fine-grained authorization system with an HOC
+ */
+
 const App = ({ user, history }) => {
   console.log("user", user);
   useEffect(() => {

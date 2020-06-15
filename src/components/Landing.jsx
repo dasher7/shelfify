@@ -17,7 +17,8 @@ export const Landing = (props) => {
     <Row
       style={{
         display: "flex",
-        backgroundColor: "#C4EBC8",
+        color: "white",
+        backgroundColor: "#437F97",
         height: "100vh",
         alignContent: "center",
         textAlign: "center",
@@ -27,19 +28,22 @@ export const Landing = (props) => {
         <img
           src={require("../images/landing.png")}
           alt="landing app showcase"
-          style={{ height: 650, width: 1000 }}
+          style={{ height: 650, width: 1100, marginLeft: 50 }}
         />
       </Col>
       <Col
         span={10}
         style={{
+          color: "white",
           paddingTop: 100,
           alignCenter: "center",
           textAlign: "start",
         }}
       >
-        <Title level={1}>Shelfify</Title>
-        <Text style={{ fontSize: 20 }}>
+        <Title style={{ color: "white" }} level={1}>
+          Shelfify
+        </Title>
+        <Text style={{ color: "white", fontSize: 20 }}>
           A minimalistic way to order whatever you want.
         </Text>
         <ul style={{ fontSize: 18 }}>
