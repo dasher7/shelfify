@@ -12,7 +12,6 @@ const { Title, Text } = Typography;
 export const Landing = (props) => {
   const [showForm, setShowForm] = useState(false);
   const [accessType, setAccessType] = useState("");
-  console.log("landing props", props);
 
   return (
     <Row

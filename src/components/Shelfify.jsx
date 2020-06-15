@@ -2,10 +2,11 @@ import React, { useState } from "react";
 import { Sidebar } from "./Sidebar";
 import { MainContent } from "./MainContent";
 import { HeaderContent } from "./HeaderContent";
-import { Layout } from "antd";
+import { Layout, Row } from "antd";
 import "antd/dist/antd.css";
 import "../css/shelfify.css";
 import { AuthUserContext } from "../auth";
+import { Landing } from "./Landing";
 
 export const Shelfify = () => {
   const [collapsed, setCollapsedValue] = useState(false);
@@ -25,7 +26,9 @@ export const Shelfify = () => {
             </Layout>
           </Layout>
         ) : (
-          <h1>not auth</h1>
+          <Row>
+            <Landing />
+          </Row>
         )
       }
     </AuthUserContext.Consumer>
