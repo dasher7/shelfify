@@ -5,8 +5,9 @@ import { GlobalStore } from "./store/GlobalStore";
 import { Switch, Route } from "react-router";
 import { Landing } from "./components/Landing";
 import { HOME, LANDING } from "./routes/routes";
+import { WithAuthentication } from "./auth";
 
-export const App = () => {
+const App = () => {
   return (
     <GlobalStore>
       <Switch>
@@ -22,3 +23,4 @@ export const App = () => {
     </GlobalStore>
   );
 };
+export default WithAuthentication(App);

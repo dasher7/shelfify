@@ -46,7 +46,6 @@ export const HeaderContentBase = ({ collapsed, toggle, firebase, history }) => {
   const handleSelect = async (value, selectedOptions) => {
     switch (value[0]) {
       case "log out":
-        console.log("logout");
         try {
           await firebase.doSignOut();
           history.push(ROUTES.LANDING);

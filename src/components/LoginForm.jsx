@@ -27,10 +27,8 @@ export const LoginForm = ({ accessType, visible, exit, firebase, history }) => {
     passwordConfirm: "",
   });
 
-  const validateLogin = (...fields) => {
-    fields.forEach((el) => {
-      if (el === "") return false;
-    });
+  const validateLogin = (email, password) => {
+    return email !== "" && password !== "";
   };
 
   const validateSignup = ({ email, password, passwordConfirm }) => {
@@ -39,7 +37,7 @@ export const LoginForm = ({ accessType, visible, exit, firebase, history }) => {
 
   const handleSubmit = async (event) => {
     try {
-      console.log(user);
+      // eslint-disable-next-line
       let authUser = {};
       if (accessType === "signup") {
         if (validateSignup(user)) {
@@ -54,7 +52,8 @@ export const LoginForm = ({ accessType, visible, exit, firebase, history }) => {
       }
 
       if (accessType === "login") {
-        if (!validateLogin()) alert("Fields cannot be empty.");
+        if (!validateLogin(user.email, user.password))
+          alert("Fields cannot be empty.");
         else {
           authUser = await firebase.doSignInWithEmailAndPassword(
             user.email,
@@ -63,7 +62,6 @@ export const LoginForm = ({ accessType, visible, exit, firebase, history }) => {
           history.push(ROUTES.HOME);
         }
       }
-      console.log("user", authUser);
     } catch (error) {
       alert("Something went bad.");
     }

@@ -9,9 +9,10 @@ const { Title, Text } = Typography;
  * TODO: use a proper css to style this page
  */
 
-export const Landing = () => {
+export const Landing = (props) => {
   const [showForm, setShowForm] = useState(false);
   const [accessType, setAccessType] = useState("");
+  console.log("landing props", props);
 
   return (
     <Row
