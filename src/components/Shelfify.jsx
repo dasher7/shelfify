@@ -25,7 +25,7 @@ export const Shelfify = () => {
             </Layout>
           </Layout>
         ) : (
-          <h1>propciod</h1>
+          <h1>not auth</h1>
         )
       }
     </AuthUserContext.Consumer>
