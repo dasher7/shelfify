@@ -53,13 +53,19 @@ class Firebase {
   user = (userId) => this.db.ref("users/" + userId);
 
   // ? Retrieve all users
-  findAllUser = () => this.db.ref("/users");
+  findAllUser = () => this.db.ref("users");
 
   // ? Save or retrieve one card
-  card = (userId) => this.db.ref(`/cards`);
+  card = (userId, category) => this.db.ref("cards/" + userId + "/" + category);
 
   // ? Retrieve all cards
-  findAllCards = () => this.db.ref("cards");
+  findAllCards = () => this.db.ref("cards/");
+
+  // ? Save or retrieve one category
+  category = (userId) => this.db.ref("category/" + userId);
+
+  // ? Retrieve all categories of all users
+  allCategoryForAllUsers = () => this.db.ref("category/");
 
   /**
    * * END DATABASE API
