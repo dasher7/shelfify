@@ -4,6 +4,7 @@
 
 import app from "firebase/app";
 import "firebase/auth";
+import "firebase/database";
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -20,6 +21,7 @@ class Firebase {
   constructor() {
     app.initializeApp(firebaseConfig);
     this.auth = app.auth();
+    this.db = app.database();
   }
 
   /**
@@ -45,6 +47,16 @@ class Firebase {
 
   /**
    * * DATABASE API
+   */
+
+  // * Save a user
+  user = (userId) => this.db.ref(`/users/${userId}`);
+
+  // * Retrieve all users
+  user = () => this.db.ref(`/users`);
+
+  /**
+   * * END DATABASE API
    */
 }
 

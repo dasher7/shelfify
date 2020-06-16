@@ -37,7 +37,6 @@ export const LoginForm = ({ accessType, visible, exit, firebase, history }) => {
 
   const handleSubmit = async (event) => {
     try {
-      // eslint-disable-next-line
       let authUser = {};
       if (accessType === "signup") {
         if (validateSignup(user)) {
@@ -45,6 +44,8 @@ export const LoginForm = ({ accessType, visible, exit, firebase, history }) => {
             user.email,
             user.password
           );
+          const { name, surname, email } = user;
+          await firebase.user(authUser.user.uid).set({ name, surname, email });
           history.push(ROUTES.HOME);
         } else {
           alert("Email cannot be empty and passwords must match.");
@@ -115,6 +116,26 @@ export const LoginForm = ({ accessType, visible, exit, firebase, history }) => {
           onFinish={() => handleSubmit(user)}
           onFinishFailed={() => alert("Insert at least a letter.")}
         >
+          <Form.Item name="name" label="name">
+            <Input
+              name="name"
+              placeholder="name"
+              value={user.name}
+              onChange={(event) =>
+                setUser({ ...user, [event.target.name]: event.target.value })
+              }
+            />
+          </Form.Item>
+          <Form.Item name="surname" label="surname">
+            <Input
+              name="surname"
+              placeholder="surname"
+              value={user.surname}
+              onChange={(event) =>
+                setUser({ ...user, [event.target.name]: event.target.value })
+              }
+            />
+          </Form.Item>
           <Form.Item name="email" label="email">
             <Input
               name="email"
@@ -125,6 +146,7 @@ export const LoginForm = ({ accessType, visible, exit, firebase, history }) => {
               }
             />
           </Form.Item>
+
           <Form.Item name="password" label="password">
             <Input
               name="password"
