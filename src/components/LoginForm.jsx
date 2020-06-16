@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Button, Modal, Form, Input } from "antd";
 import { withFirebase } from "../firebase";
 import { withRouter } from "react-router-dom";
 import * as ROUTES from "../routes/routes";
+import { GlobalContext } from "../store/GlobalStore";
+import { withAuthenticationCons } from "../hoc/withAuthenticationCons";
 
 /**
  * TODO: refactor the class separating the two forms
@@ -20,12 +22,14 @@ const tailLayout = {
   wrapperCol: { offset: 8, span: 16 },
 };
 
-export const LoginForm = ({ accessType, visible, exit, firebase, history }) => {
+export const LoginForm = (props) => {
+  const { authUser, accessType, visible, exit, firebase, history } = props;
   const [user, setUser] = useState({
     email: "",
     password: "",
     passwordConfirm: "",
   });
+  const { addUser } = useContext(GlobalContext);
 
   const validateLogin = (email, password) => {
     return email !== "" && password !== "";
@@ -43,9 +47,10 @@ export const LoginForm = ({ accessType, visible, exit, firebase, history }) => {
             user.email,
             user.password
           );
-          console.log("auth user", authUser.user.uid);
           const { name, surname, email } = user;
+          console.log("signup", name, surname, email);
           await firebase.user(authUser.user.uid).set({ name, surname, email });
+
           history.push(ROUTES.HOME);
         } else {
           alert("Email cannot be empty and passwords must match.");
@@ -60,10 +65,12 @@ export const LoginForm = ({ accessType, visible, exit, firebase, history }) => {
             user.email,
             user.password
           );
+
           history.push(ROUTES.HOME);
         }
       }
     } catch (error) {
+      console.log(error);
       alert("Something went bad.");
     }
     //event.preventDefault();
@@ -180,6 +187,8 @@ export const LoginForm = ({ accessType, visible, exit, firebase, history }) => {
   );
 };
 
-const LoginFormFirebase = withRouter(withFirebase(LoginForm));
+const LoginFormFirebase = withRouter(
+  withAuthenticationCons(withFirebase(LoginForm))
+);
 
 export { LoginFormFirebase };

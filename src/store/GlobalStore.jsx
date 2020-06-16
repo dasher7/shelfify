@@ -78,11 +78,19 @@ export const GlobalStore = ({ children }) => {
     });
   }
 
+  function addUser(user) {
+    dispatch({
+      type: "ADD_USER",
+      payload: user,
+    });
+  }
+
   // ? RETURN AN ACTUAL HOC
 
   return (
     <GlobalContext.Provider
       value={{
+        user: state.user,
         categories: state.categories,
         activeCategory: state.activeCategory,
         categoryContent: state.categoryContent,
@@ -91,6 +99,7 @@ export const GlobalStore = ({ children }) => {
         setActiveCategory,
         addCategoryContent,
         deleteCategory,
+        addUser,
       }}
     >
       {children}

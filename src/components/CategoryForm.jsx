@@ -2,6 +2,8 @@ import React, { useContext, useState } from "react";
 
 import { Button, Form, Input, Layout, Modal, Row } from "antd";
 import { GlobalContext } from "../store/GlobalStore";
+import { withFirebase } from "../firebase";
+import { withAuthenticationCons } from "../hoc/withAuthenticationCons";
 
 const layout = {
   labelCol: { span: 8 },
@@ -19,9 +21,18 @@ const tailLayout = {
  * TODO: Validate form input (there is a prop in antd Form)
  */
 
-export const CategoryForm = ({ visible, setVisibile }) => {
+export const CategoryForm = ({ firebase, authUser, visible, setVisibile }) => {
   const { addCategory, setActiveCategory } = useContext(GlobalContext);
   const [userInput, setUserInput] = useState("");
+
+  const handleSubmit = () => {
+    addCategory(userInput);
+    setActiveCategory(userInput);
+    setVisibile();
+  };
+
+  console.log("category form", firebase);
+  console.log("category form", authUser);
 
   return (
     <Layout>
@@ -36,11 +47,7 @@ export const CategoryForm = ({ visible, setVisibile }) => {
         >
           <Form
             {...layout}
-            onFinish={() => {
-              addCategory(userInput);
-              setActiveCategory(userInput);
-              setVisibile();
-            }}
+            onFinish={handleSubmit}
             onFinishFailed={() => alert("Insert at least a letter.")}
           >
             <Form.Item
@@ -69,3 +76,5 @@ export const CategoryForm = ({ visible, setVisibile }) => {
     </Layout>
   );
 };
+
+export default withAuthenticationCons(withFirebase(CategoryForm));

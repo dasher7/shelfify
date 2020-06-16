@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import "./css/app.css";
-import { Shelfify } from "./components/Shelfify";
+import Shelfify from "./components/Shelfify";
 import { GlobalStore } from "./store/GlobalStore";
 import { Switch, Route } from "react-router";
 import { Landing } from "./components/Landing";
@@ -14,7 +14,6 @@ import * as ROUTES from "./routes/routes";
  */
 
 const App = ({ user, history }) => {
-  console.log("user", user);
   useEffect(() => {
     if (user === null) {
       history.push(ROUTES.LANDING);

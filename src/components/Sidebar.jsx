@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 
-import { CategoryForm } from "./CategoryForm";
+import CategoryForm from "./CategoryForm";
 import { GlobalContext } from "../store/GlobalStore";
 
 import { Button, Layout, Menu } from "antd";

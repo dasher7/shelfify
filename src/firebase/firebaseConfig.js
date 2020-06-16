@@ -50,7 +50,7 @@ class Firebase {
    */
 
   // ? Save or retrieve a single a user
-  user = (userId) => this.db.ref("users" + userId);
+  user = (userId) => this.db.ref("users/" + userId);
 
   // ? Retrieve all users
   findAllUser = () => this.db.ref("/users");

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Avatar, Cascader, Layout, Typography, Row } from "antd";
 import {
   MenuUnfoldOutlined,
@@ -9,6 +9,7 @@ import { SearchBar } from "./SearchBar";
 import { withFirebase } from "../firebase";
 import { withRouter } from "react-router-dom";
 import * as ROUTES from "../routes/routes";
+import { GlobalContext } from "../store/GlobalStore";
 
 const { Header } = Layout;
 const { Title } = Typography;
@@ -43,11 +44,14 @@ const cascadeOptions = [
  */
 
 export const HeaderContentBase = ({ collapsed, toggle, firebase, history }) => {
+  const { user, addUser } = useContext(GlobalContext);
+
   const handleSelect = async (value, selectedOptions) => {
     switch (value[0]) {
       case "log out":
         try {
           await firebase.doSignOut();
+          addUser({});
           history.push(ROUTES.LANDING);
         } catch (error) {
           console.error(error);
@@ -83,7 +87,7 @@ export const HeaderContentBase = ({ collapsed, toggle, firebase, history }) => {
       <SearchBar />
       <Row>
         <Title level={3} style={{ marginRight: 15 }}>
-          Welcome, Andrea
+          Welcome, {user.name ? user.name : "User"}
         </Title>
         <Cascader options={cascadeOptions} onChange={handleSelect}>
           <Avatar style={{ backgroundColor: "blue" }} icon={<UserOutlined />} />

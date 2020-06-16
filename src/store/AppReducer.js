@@ -45,6 +45,8 @@ export default (state, action) => {
           ].concat(action.payload),
         },
       };
+    case "ADD_USER":
+      return { ...state, user: action.payload };
     default:
       return state;
   }
