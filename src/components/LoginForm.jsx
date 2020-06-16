@@ -37,13 +37,13 @@ export const LoginForm = ({ accessType, visible, exit, firebase, history }) => {
 
   const handleSubmit = async (event) => {
     try {
-      let authUser = {};
       if (accessType === "signup") {
         if (validateSignup(user)) {
-          authUser = await firebase.doCreateUserWithEmailAndPassword(
+          const authUser = await firebase.doCreateUserWithEmailAndPassword(
             user.email,
             user.password
           );
+          console.log("auth user", authUser.user.uid);
           const { name, surname, email } = user;
           await firebase.user(authUser.user.uid).set({ name, surname, email });
           history.push(ROUTES.HOME);
@@ -56,7 +56,7 @@ export const LoginForm = ({ accessType, visible, exit, firebase, history }) => {
         if (!validateLogin(user.email, user.password))
           alert("Fields cannot be empty.");
         else {
-          authUser = await firebase.doSignInWithEmailAndPassword(
+          await firebase.doSignInWithEmailAndPassword(
             user.email,
             user.password
           );

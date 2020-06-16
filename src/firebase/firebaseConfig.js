@@ -39,7 +39,7 @@ class Firebase {
 
   doPasswordReset = (email) => this.auth.sendPasswordResetEmail(email);
 
-  doPasswordUpdate = (password) => this.auth.updatePassword();
+  doPasswordUpdate = (password) => this.auth.updatePassword(password);
 
   /**
    * *END AUTH API
@@ -49,11 +49,17 @@ class Firebase {
    * * DATABASE API
    */
 
-  // * Save a user
-  user = (userId) => this.db.ref(`/users/${userId}`);
+  // ? Save or retrieve a single a user
+  user = (userId) => this.db.ref("users" + userId);
 
-  // * Retrieve all users
-  user = () => this.db.ref(`/users`);
+  // ? Retrieve all users
+  findAllUser = () => this.db.ref("/users");
+
+  // ? Save or retrieve one card
+  card = (userId) => this.db.ref(`/cards`);
+
+  // ? Retrieve all cards
+  findAllCards = () => this.db.ref("cards");
 
   /**
    * * END DATABASE API
